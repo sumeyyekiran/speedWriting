@@ -1,25 +1,21 @@
 import React from "react";
+import ScoreCard from "./ScoreCard";
+import { ScoreTypes } from "../data/Types";
 
-const Score = (props) =>
-{
-  const {duration, accuracy, wordsPerMinute} = props.score;
-    return (
-        <div className="card-deck" style={{ display: "flex", width: "100%" }}>
-        <div
-          className="card speedCheckCardStyle"
-        >
-          <div className="card-body">Süre: {duration}</div>
-        </div>
-        <div
-          className="card speedCheckCardStyle"
-        >
-          <div className="card-body">Doğruluk: {accuracy}</div>
-        </div>
-        <div className="card speedCheckCardStyle">
-          <div className="card-body">DBK: {wordsPerMinute}</div>
-        </div>
+const Score = ({ values }) => {
+  return (
+    <div className="container">
+      <div className="row">
+        {Object.entries(values).map(([key, value]) => {
+          return (
+            <div className="col-md-4" key={key}>
+              <ScoreCard type={ScoreTypes[key]} key={key} value={value} />
+            </div>
+          );
+        })}
       </div>
-    );
-}
+    </div>
+  );
+};
 
 export default Score;
