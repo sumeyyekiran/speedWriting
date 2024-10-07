@@ -19,7 +19,7 @@ class SpeedCheck extends Component {
     const { result } = this.state;
     return (
       <React.Fragment>
-        <Info challange={this.challange} />
+        <Info />
         <hr />
         <ChallangeInput challange={this.challange} setResult={this.setResult} />
         <hr />
