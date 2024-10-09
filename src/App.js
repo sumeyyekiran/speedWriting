@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Challengers from "./components/challengers/Challengers";
+import Challengers from "./components/challenges/Challengers";
 import Results from "./components/results/Results";
 import SpeedCheck from "./components/speedcheck/SpeedCheck";
 import { ThemeContext } from "./contexts/ThemeContext";

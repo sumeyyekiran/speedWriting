@@ -12,7 +12,7 @@ const Info = (props) => {
           {(themeContext) => {
             const theme = themeContext.getTheme();
             const challenge = challengeContext.challenges.find(
-              (c) => (c.id = challengeContext.selected)
+              (c) => c.id === challengeContext.selected
             ).text;
             return (
               <div className={`card text-center ${theme.card}`}>

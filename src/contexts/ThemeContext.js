@@ -9,12 +9,14 @@ class ThemeContextProvider extends Component {
       navbar: "navbar-light bg-warning",
       toggleButton: "btn-outline-dark",
       card: "bg-open-gray border-danger text-white",
+      table: "table-dark",
     },
     light: {
       app: "bg-light",
       navbar: "navbar-dark bg-dark",
       toggleButton: "btn-outline-light",
       card: "bg-light border-info",
+      table: "table-light",
     },
   };
   getTheme = () => {
