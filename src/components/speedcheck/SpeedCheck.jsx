@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import "../../index.css";
 import Info from "./info";
-import ChallangeInput from "./ChallangeInput";
+import ChallengeInput from "./ChallangeInput";
 import Score from "./Score";
 import SelectChallenge from "./SelectChallenge";
+
 const initState = {
   result: null,
 };
-
 class SpeedCheck extends Component {
   state = initState;
 
   setResult = (result) => {
-    this.setState({ result });
+    this.setState({
+      result,
+    });
   };
 
   render() {
@@ -23,7 +25,7 @@ class SpeedCheck extends Component {
         <hr />
         <Info />
         <hr />
-        <ChallangeInput setResult={this.setResult} />
+        <ChallengeInput setResult={this.setResult} />
         <hr />
         {result !== null ? <Score values={this.state.result} /> : ""}
       </React.Fragment>

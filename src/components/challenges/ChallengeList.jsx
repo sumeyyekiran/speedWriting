@@ -15,15 +15,15 @@ const ChallengeList = () => {
     );
   });
   return (
-    <div className={`card text-center ${theme.card} border`}>
+    <div className={`card text-center  ${theme.card} border`}>
       <div className="card-header">
-        <h4>Metinler</h4>
+        <h4 className="card-title">Metinler</h4>
       </div>
       <div className="card-body p-1">
-        <table className={`table ${theme.table} table-hover table-stripped m0`}>
+        <table className={`table ${theme.table} table-striped table-hover m-0`}>
           <thead>
             <tr>
-              <th>id</th>
+              <th>ID</th>
               <th>Metin</th>
               <th>Zorluk</th>
             </tr>

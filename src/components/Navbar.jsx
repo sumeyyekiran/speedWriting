@@ -5,12 +5,11 @@ import { ThemeContext } from "../contexts/ThemeContext";
 class Navbar extends React.Component {
   static contextType = ThemeContext;
   render() {
-    const theme = this.context.getTheme();
+    const { isDarkTheme, getTheme } = this.context;
+    const theme = getTheme();
     return (
-      <nav
-        className={`navbar navbar-expand-lg ${theme.navbar} rounded mb-2 p-3`}
-      >
-        <NavLink className="navbar-brand" href="#">
+      <nav className={`navbar navbar-expand-lg ${theme.navbar} rounded mb-2 p-2`}>
+        <NavLink className="navbar-brand" to="/">
           Yazma Testi
         </NavLink>
         <button
@@ -37,7 +36,7 @@ class Navbar extends React.Component {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact className="nav-link" to="/challengers">
+              <NavLink exact className="nav-link" to="/challenges">
                 Metinler
               </NavLink>
             </li>
@@ -48,7 +47,15 @@ class Navbar extends React.Component {
           className={`btn ${theme.toggleButton}`}
           onClick={this.context.changeTheme}
         >
-          {theme.isDarkTheme ? "Açık Tema" : "Koyu Tema"}
+          {isDarkTheme === true ? (
+            <span>
+              Açık Tema <i className="far fa-lightbulb"></i>
+            </span>
+          ) : (
+            <span>
+              Koyu Tema <i className="fas fa-lightbulb"></i>
+            </span>
+          )}
         </button>
       </nav>
     );

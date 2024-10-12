@@ -1,24 +1,36 @@
 import React, { Component, createContext } from "react";
 
 export const ThemeContext = createContext();
+const initState = {
+  isDarkTheme: false,
+  dark: {
+    app: "bg-dark",
+    navbar: "navbar-light bg-warning",
+    toggleButton: "btn-outline-dark",
+    card: "bg-open-gray border-warning text-white",
+    score: "bg-open-gray text-white",
+    table: "table-dark",
+  },
+  light: {
+    app: "bg-light",
+    navbar: "navbar-dark bg-dark",
+    toggleButton: "btn-outline-light",
+    card: "bg-light border-info",
+    score: "bg-light",
+    table: "table-light",
+  },
+};
 class ThemeContextProvider extends Component {
-  state = {
-    isDarkTheme: false,
-    dark: {
-      app: "bg-dark",
-      navbar: "navbar-light bg-warning",
-      toggleButton: "btn-outline-dark",
-      card: "bg-open-gray border-danger text-white",
-      table: "table-dark",
-    },
-    light: {
-      app: "bg-light",
-      navbar: "navbar-dark bg-dark",
-      toggleButton: "btn-outline-light",
-      card: "bg-light border-info",
-      table: "table-light",
-    },
-  };
+  state = initState;
+
+  componentDidMount() {
+    const data = localStorage.getItem("theme");
+    this.setState(data ? JSON.parse(data) : initState);
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem("theme", JSON.stringify(this.state));
+  }
   getTheme = () => {
     const { isDarkTheme, dark, light } = this.state;
     return isDarkTheme ? dark : light;

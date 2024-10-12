@@ -19,7 +19,7 @@ function App() {
                 <Navbar />
                 <Routes>
                   <Route path="/results" element={<Results />} />
-                  <Route path="/challengers" element={<Challengers />} />
+                  <Route path="/challenges" element={<Challengers />} />
                   <Route path="/" element={<SpeedCheck />} />
                   {/* 404 sayfası için yönlendirme */}
                   <Route path="*" element={<Navigate to="/" />} />

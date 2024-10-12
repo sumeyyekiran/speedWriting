@@ -1,69 +1,80 @@
-import React, { Component, createContext, useState } from "react";
+import React, { createContext, useState, useReducer, useEffect } from "react";
+import { challengeReducer } from "../reducers/ChallengeReducer";
 
 export const ChallengeContext = createContext();
 const initState = {
   challenges: [
     {
       id: 1,
-      text: "İnsanlar, hatıraları ve duygularıyla bir yerlere aittir.",
+      text: "Hepimiz biraz deliyiz.",
       difficulty: "easy",
     },
+
     {
       id: 2,
-      text: "Bizi güçlü yapan yediklerimiz değil, yenemeyeceklerimizdir.",
+      text: "Hayat, yaptıklarınla değil, yaptıklarınla başkalarına dokunarak anlam kazanır.",
       difficulty: "medium",
     },
     {
       id: 3,
-      text: "Kader, insanın eylemlerine karıştığı sürece var olur. Bir kader var mı, yok mu, insan ancak onunla karşılaştığında öğrenir.",
-      difficulty: "hard",
-    },
-    {
-      id: 4,
-      text: "Sonsuzluğun kıyısında bir gecede, zamanla ölüm arasında sıkışıp kalmış bir hayal misali, yaşamın en büyük trajedisine kapıldım.",
+      text: "Düşmanlarına karşı savaşmak zorundasın ama asıl savaş, kendinle. İçindeki karanlıkla yüzleşip, onu alt edebilmek için güçlü olmalısın.",
       difficulty: "hard",
     },
   ],
   selected: 1,
   index: 5,
 };
-const initResult = {
-  results: [
-    {
-      id: 1,
-      challengeId: 2,
-      scores: { duration: 2.5, accuracy: 83, wordPerMinute: 55 },
-    },
-  ],
-};
-const ChallengeContextProvider = (props) => {
-  const [state, setChallenges] = useState(initState);
-  const [results, setResults] = useState(initResult);
+const initResult = [];
 
-  const addChallenge = (challenge) => {
-    let id = state.index;
-    const newChallenge = { ...challenge, id };
-    setChallenges({
-      ...state,
-      challenges: [...state.challenges, newChallenge],
-      index: id + 1,
-    });
-  };
-  const setSelected = (id) => {
-    setChallenges({
-      ...state,
-      selected: id,
-    });
+const ChallengeContextProvider = (props) => {
+  const [state, dispatch] = useReducer(challengeReducer, initState, () => {
+    const data = localStorage.getItem("challenges");
+    return data ? JSON.parse(data) : initState;
+  });
+  //const [state, setChallenges] = useState(initState);
+  const data = localStorage.getItem("results");
+
+  let cleanedData = "";
+  if (data) {
+    cleanedData = data.replace(/\\+/g, "");
+    cleanedData = cleanedData.replace(/^"+|"+$/g, "");
+  } else {
+    cleanedData = JSON.stringify(initResult);
+  }
+
+  const parsedResults = cleanedData ? JSON.parse(cleanedData) : initResult;
+  const [results, setResults] = useState(parsedResults);
+
+  // const addChallenge = (challenge) => {
+  //     let id = state.index;
+  //     const newChallenge = { ...challenge, id }
+  //     setChallenges({
+  //         ...state,
+  //         challenges: [...state.challenges, newChallenge],
+  //         index: id + 1
+  //     })
+  // }
+  // const setSelected = (id) => {
+  //     setChallenges({
+  //         ...state,
+  //         selected: id
+  //     })
+  // }
+
+  useEffect(() => {
+    localStorage.setItem("challenges", JSON.stringify(state));
+  }, [state]);
+  useEffect(() => {
+    localStorage.setItem("results", JSON.stringify(results));
+  }, [results]);
+
+  const addResult = (result) => {
+    setResults([...results, result]);
   };
 
   return (
     <ChallengeContext.Provider
-      value={{
-        ...state,
-        ...results,
-        addChallenge: addChallenge,
-        setSelected: setSelected,
-      }}
+      value={{ ...state, results: [...results], dispatch, addResult }}
     >
       {props.children}
     </ChallengeContext.Provider>

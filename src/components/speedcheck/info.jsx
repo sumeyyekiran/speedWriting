@@ -1,6 +1,4 @@
 import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../../index.css";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { ChallengeContext } from "../../contexts/ChallengeContext";
 
@@ -15,7 +13,7 @@ const Info = (props) => {
               (c) => c.id === challengeContext.selected
             ).text;
             return (
-              <div className={`card text-center ${theme.card}`}>
+              <div className={`card text-center  ${theme.card} border`}>
                 <div className="card-header">
                   <h3>Yazma Hızı Testi</h3>
                 </div>
@@ -26,9 +24,7 @@ const Info = (props) => {
                   </p>
                   <p>
                     Testi bitirmek için{" "}
-                    <span className="badge badge-secondary">
-                      'CTRL + Enter'
-                    </span>{" "}
+                    <span className="badge badge-info">'Ctrl' + 'Enter'</span>{" "}
                     kombinasyonunu kullanınız.
                   </p>
                   <p>
